@@ -1,0 +1,4 @@
+qthangman
+=========
+
+Qt Hangman game
