@@ -78,8 +78,8 @@ void Data::guessWord(const QString &word)
         m_lettersOwned += m_word.toUpper();
     } else {
         // Small hack to get an additional penalty for guessing wrong
-        Q_ASSERT(i < 10);
         static int i=0;
+        Q_ASSERT(i < 10);
         m_lettersOwned += QString::number(i++);
         emit errorCountChanged();
     }
