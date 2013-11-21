@@ -22,7 +22,7 @@ void Data::initWordList()
     if (file.open(QIODevice::ReadOnly)) {
         while (!file.atEnd()) {
             QByteArray ba = file.readLine().trimmed().toUpper();
-            if (!ba.isEmpty())
+            if (!ba.isEmpty() && ba.length() < 10)
                 m_wordList.append(QString::fromLatin1(ba));
         }
     }
