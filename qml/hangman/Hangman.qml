@@ -22,7 +22,7 @@ Rectangle {
         visible: opacity > 0.0
         Behavior on opacity {
             NumberAnimation {
-                duration: 1000
+                duration: 300
             }
         }
 
@@ -43,7 +43,7 @@ Rectangle {
         visible: opacity > 0.0
         Behavior on opacity {
             NumberAnimation {
-                duration: 1000
+                duration: 300
             }
         }
     }
@@ -59,7 +59,7 @@ Rectangle {
         visible: opacity > 0.0
         Behavior on opacity {
             NumberAnimation {
-                duration: 1000
+                duration: 300
             }
         }
         color: "white"
@@ -88,7 +88,7 @@ Rectangle {
             visible: opacity > 0.0
             Behavior on opacity {
                 NumberAnimation {
-                    duration: 1000
+                    duration: 300
                 }
             }
         }
@@ -105,7 +105,7 @@ Rectangle {
             visible: opacity > 0.0
             Behavior on opacity {
                 NumberAnimation {
-                    duration: 1000
+                    duration: 300
                 }
             }
         }
@@ -126,7 +126,7 @@ Rectangle {
             visible: opacity > 0.0
             Behavior on opacity {
                 NumberAnimation {
-                    duration: 1000
+                    duration: 300
                 }
             }
         }
@@ -147,7 +147,7 @@ Rectangle {
             visible: opacity > 0.0
             Behavior on opacity {
                 NumberAnimation {
-                    duration: 1000
+                    duration: 300
                 }
             }
         }
@@ -168,7 +168,7 @@ Rectangle {
             visible: opacity > 0.0
             Behavior on opacity {
                 NumberAnimation {
-                    duration: 1000
+                    duration: 300
                 }
             }
         }
@@ -189,7 +189,7 @@ Rectangle {
             visible: opacity > 0.0
             Behavior on opacity {
                 NumberAnimation {
-                    duration: 1000
+                    duration: 300
                 }
             }
         }
@@ -208,7 +208,7 @@ Rectangle {
         scale: visible ? 1.0 : 30.0
         Behavior on opacity {
             NumberAnimation {
-                duration: 2000
+                duration: 500
             }
         }
         Behavior on scale {
@@ -230,7 +230,7 @@ Rectangle {
         scale: visible ? 1.0 : 30.0
         Behavior on opacity {
             NumberAnimation {
-                duration: 2000
+                duration: 500
             }
         }
         Behavior on scale {
