@@ -2,6 +2,7 @@
 #include <QFile>
 #include <QDebug>
 #include <time.h>
+#include <QBuffer>
 
 Data *Data::m_instance = 0;
 
@@ -20,8 +21,13 @@ void Data::initWordList()
 {
     QFile file(":/enable1.txt");
     if (file.open(QIODevice::ReadOnly)) {
-        while (!file.atEnd()) {
-            QByteArray ba = file.readLine().trimmed().toUpper();
+        QByteArray allData = file.readAll();
+        QBuffer buffer(&allData);
+        if (!buffer.open(QIODevice::ReadOnly))
+            qFatal("Couldn't open buffer for reading!");
+
+        while (!buffer.atEnd()) {
+            QByteArray ba = buffer.readLine().trimmed().toUpper();
             if (!ba.isEmpty() && ba.length() < 10)
                 m_wordList.append(QString::fromLatin1(ba));
         }
