@@ -21,46 +21,46 @@ Item {
         }
     }
 
-    Menu {
-        id: letterMenu
+//    Menu {
+//        id: letterMenu
 
-        MenuItem {
-            text: "Guess word!"
-            onTriggered: wordInputDialog.visible = true
-        }
+//        MenuItem {
+//            text: "Guess word!"
+//            onTriggered: wordInputDialog.visible = true
+//        }
 
-        Menu {
-            id: vowelMenu
-            title: "Buy a vowel!"
+//        Menu {
+//            id: vowelMenu
+//            title: "Buy a vowel!"
 
-            Instantiator {
-                model: applicationData.vowels.length
-                MenuItem {
-                    id: vowelItem
-                    text: applicationData.vowels.charAt(index)
-                    onTriggered: applicationData.requestLetter(text.charAt(0))
-                    visible: !(applicationData.lettersOwned.indexOf(text) >= 0)
-                }
-                onObjectAdded: vowelMenu.insertItem(index, object)
-            }
-        }
+//            Instantiator {
+//                model: applicationData.vowels.length
+//                MenuItem {
+//                    id: vowelItem
+//                    text: applicationData.vowels.charAt(index)
+//                    onTriggered: applicationData.requestLetter(text.charAt(0))
+//                    visible: !(applicationData.lettersOwned.indexOf(text) >= 0)
+//                }
+//                onObjectAdded: vowelMenu.insertItem(index, object)
+//            }
+//        }
 
-        Instantiator {
-            model: applicationData.consonants.length
-            MenuItem {
-                id: consonantItem
-                text: applicationData.consonants.charAt(index)
-                onTriggered: applicationData.requestLetter(text.charAt(0))
-                visible: !(applicationData.lettersOwned.indexOf(text) >= 0)
-            }
-            onObjectAdded: letterMenu.insertItem(index, object)
-        }
-    }
+//        Instantiator {
+//            model: applicationData.consonants.length
+//            MenuItem {
+//                id: consonantItem
+//                text: applicationData.consonants.charAt(index)
+//                onTriggered: applicationData.requestLetter(text.charAt(0))
+//                visible: !(applicationData.lettersOwned.indexOf(text) >= 0)
+//            }
+//            onObjectAdded: letterMenu.insertItem(index, object)
+//        }
+//    }
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            if (!topLevel.gameOver && !topLevel.success) letterMenu.popup()
-        }
-    }
+//    MouseArea {
+//        anchors.fill: parent
+//        onClicked: {
+//            if (!topLevel.gameOver && !topLevel.success) letterMenu.popup()
+//        }
+//    }
 }

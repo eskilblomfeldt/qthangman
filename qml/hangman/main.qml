@@ -4,6 +4,9 @@ Rectangle {
     id: topLevel
     color: "black"
 
+    height: 480
+    width: 320
+
     function allContained(owned, word)
     {
         for (var i=0; i<word.length; ++i) {
@@ -43,7 +46,10 @@ Rectangle {
         text: "Reset"
         anchors.left: parent.left
         anchors.top: parent.top
-        onTriggered: applicationData.reset()
+        onTriggered:  {
+            letterSelector.reset();
+            applicationData.reset()
+        }
     }
 
     SmallButton {
@@ -70,7 +76,7 @@ Rectangle {
     Word {
         id: word
         text: applicationData.word
-        anchors.bottom: parent.bottom
+        anchors.bottom: letterSelector.top
         anchors.bottomMargin: parent.height * 0.05
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.8
@@ -81,5 +87,18 @@ Rectangle {
         id: wordInputDialog
         visible: false
         anchors.fill: parent
+    }
+
+    LetterSelector {
+        id: letterSelector
+        enabled: !gameOver
+        anchors.margins: 8
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        height: parent.height * 0.2
+        onLetterSelected: {
+            applicationData.requestLetter(letter.charAt(0));
+        }
     }
 }
