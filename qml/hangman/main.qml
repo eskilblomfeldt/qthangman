@@ -92,4 +92,11 @@ Rectangle {
             wordInputDialog.visible = true;
         }
     }
+
+    Connections {
+        target: applicationData
+        onVowelBought: {
+            letterSelector.vowelPurchased(vowel);
+        }
+    }
 }

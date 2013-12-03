@@ -18,12 +18,28 @@ Item {
             keys[i].available = true;
     }
 
-    onLockedChanged: {
-            if (locked) {
-                for(var i = 0; i < keys.length; ++i)
-                    keys[i].available = false;
-            }
+    function vowelPurchased(vowel) {
+        if (vowel === 65) {
+            keyA.available = false;
+        } else if (vowel === 69) {
+            keyE.available = false;
+        } else if (vowel === 73) {
+            keyI.available = false;
+        } else if (vowel === 79) {
+            keyO.available = false;
+        } else if (vowel === 85) {
+            keyU.available = false;
         }
+    }
+
+    onLockedChanged: {
+        if (locked) {
+            for(var i = 0; i < keys.length; ++i)
+                keys[i].available = false;
+        }
+    }
+
+
 
     signal letterSelected(string letter)
     signal guessWordPressed()
