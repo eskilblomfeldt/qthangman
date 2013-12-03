@@ -38,7 +38,6 @@ Item {
         onClicked: {
             if (available) {
                 keyActivated(text);
-                available = false
             }
         }
     }

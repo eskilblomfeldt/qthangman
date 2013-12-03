@@ -3,20 +3,32 @@ import QtQuick 2.2
 Item {
     id: keyView
     property real keyWidth: (width - (horizontalSpacing * 9)) / 10
-    property real keyHeight: (height - (verticalSpacing * 2)) / 3
+    property real keyHeight: (height - (verticalSpacing * 3)) / 4
     property real horizontalSpacing: 2
     property real verticalSpacing: 4
+    property bool locked: false
+
+    property var keys: [keyA, keyB, keyC, keyD, keyE, keyF, keyG, keyH, keyI, keyJ,
+            keyH, keyJ, keyK, keyL, keyM, keyN, keyO, keyP, keyQ, keyR, keyS,
+            keyT, keyU, keyV, keyW, keyX, keyY, keyZ, keyGuess];
 
     function reset() {
         //Resets all key values to their default state
-        var keys = [keyA, keyB, keyC, keyD, keyE, keyF, keyG, keyH, keyI, keyJ,
-                keyH, keyJ, keyK, keyL, keyM, keyN, keyO, keyP, keyQ, keyR, keyS,
-                keyT, keyU, keyV, keyW, keyX, keyY, keyZ];
         for(var i = 0; i < keys.length; ++i)
             keys[i].available = true;
     }
 
+    onLockedChanged: {
+            if (locked) {
+                for(var i = 0; i < keys.length; ++i)
+                    keys[i].available = false;
+            }
+        }
+
     signal letterSelected(string letter)
+    signal guessWordPressed()
+    signal resetPressed()
+    signal revealPressed()
 
     //Qwerty layout
     Column {
@@ -33,6 +45,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -44,6 +57,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -55,6 +69,7 @@ Item {
                 purchasable: true
                 onKeyActivated: {
                     letterSelected(letter);
+
                 }
             }
             Key {
@@ -66,6 +81,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -77,6 +93,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -88,6 +105,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -132,6 +150,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
         }
@@ -158,6 +177,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -169,6 +189,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -180,6 +201,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -191,6 +213,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -202,6 +225,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -213,6 +237,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -224,6 +249,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -235,6 +261,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
         }
@@ -250,6 +277,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -261,6 +289,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -272,6 +301,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -283,6 +313,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -294,6 +325,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -305,6 +337,7 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
             Key {
@@ -316,18 +349,45 @@ Item {
                 purchasable: false
                 onKeyActivated: {
                     letterSelected(letter);
+                    available = false;
                 }
             }
         }
-    }
-//    MouseArea {
-//        id: mouseCapture
-//        anchors.fill: parent
-//        enabled: true
-//        onClicked: {
-//            //Do nothing
-//            console.log("touched");
-//        }
+        Row {
+            spacing: keyView.horizontalSpacing
+            anchors.horizontalCenter: parent.horizontalCenter
+            Key {
+                id: keyReveal
+                height: keyView.keyHeight
+                width: keyView.keyWidth * 2
+                text: "Reveal"
+                available: true
+                onKeyActivated: {
+                    revealPressed();
+                }
+            }
 
-//    }
+            Key {
+                id: keyGuess
+                height: keyView.keyHeight
+                width: keyView.keyWidth * 3
+                text: "Guess Word"
+                available: true
+                onKeyActivated: {
+                    guessWordPressed();
+                }
+            }
+
+            Key {
+               id: keyReset
+               height: keyView.keyHeight
+               width: keyView.keyWidth * 2
+               text: "Reset"
+               available: true
+               onKeyActivated: {
+                    resetPressed();
+               }
+            }
+        }
+    }
 }

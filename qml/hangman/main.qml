@@ -41,25 +41,6 @@ Rectangle {
         text: qsTr("Uses The Enhanced North American Benchmark LExicon (ENABLE) by M. Cooper and Alan Beale")
     }
 
-    SmallButton {
-        id: resetButton
-        text: "Reset"
-        anchors.left: parent.left
-        anchors.top: parent.top
-        onTriggered:  {
-            letterSelector.reset();
-            applicationData.reset()
-        }
-    }
-
-    SmallButton {
-        text: "Reveal"
-        anchors.left: parent.left
-        anchors.topMargin: topLevel.height / 100
-        anchors.top: resetButton.bottom
-        onTriggered: applicationData.reveal()
-    }
-
     Item {
         anchors.top: title.bottom
         anchors.bottom: word.top
@@ -91,14 +72,24 @@ Rectangle {
 
     LetterSelector {
         id: letterSelector
-        enabled: !gameOver
+        locked: gameOver
         anchors.margins: 8
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: parent.height * 0.2
+        height: parent.height * 0.25
         onLetterSelected: {
             applicationData.requestLetter(letter.charAt(0));
+        }
+        onResetPressed: {
+            letterSelector.reset();
+            applicationData.reset();
+        }
+        onRevealPressed: {
+            applicationData.reveal();
+        }
+        onGuessWordPressed: {
+            wordInputDialog.visible = true;
         }
     }
 }
