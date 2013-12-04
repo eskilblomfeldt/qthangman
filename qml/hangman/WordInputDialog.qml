@@ -65,7 +65,7 @@ Item {
                     color: "black"
                     maximumLength: applicationData.word.length
                     onAccepted: okButton.keyActivated("");
-                    focus: true
+                    focus: dialog.visible
                 }
             }
             Key {
