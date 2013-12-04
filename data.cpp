@@ -78,6 +78,12 @@ void Data::reveal()
     emit errorCountChanged();
 }
 
+void Data::gameOverReveal()
+{
+    m_lettersOwned += vowels() + consonants();
+    emit lettersOwnedChanged();
+}
+
 void Data::guessWord(const QString &word)
 {
     if (word.compare(m_word, Qt::CaseInsensitive) == 0) {

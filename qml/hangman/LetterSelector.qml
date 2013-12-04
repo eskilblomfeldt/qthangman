@@ -10,7 +10,7 @@ Item {
 
     property var keys: [keyA, keyB, keyC, keyD, keyE, keyF, keyG, keyH, keyI, keyJ,
             keyH, keyJ, keyK, keyL, keyM, keyN, keyO, keyP, keyQ, keyR, keyS,
-            keyT, keyU, keyV, keyW, keyX, keyY, keyZ, keyGuess];
+            keyT, keyU, keyV, keyW, keyX, keyY, keyZ, keyGuess, keyReveal];
 
     function reset() {
         //Resets all key values to their default state

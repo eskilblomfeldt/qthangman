@@ -19,6 +19,11 @@ Rectangle {
     property bool gameOver: applicationData.errorCount > 8
     property bool success: !gameOver && allContained(applicationData.lettersOwned, applicationData.word)
 
+    onGameOverChanged: {
+        if (gameOver)
+            applicationData.gameOverReveal();
+    }
+
     Text {
         id: title
         color: "white"
@@ -64,15 +69,9 @@ Rectangle {
         height: parent.height * 0.1
     }
 
-    WordInputDialog {
-        id: wordInputDialog
-        visible: false
-        anchors.fill: parent
-    }
-
     LetterSelector {
         id: letterSelector
-        locked: gameOver
+        locked: gameOver || success
         anchors.margins: 8
         anchors.bottom: parent.bottom
         anchors.left: parent.left
@@ -91,6 +90,12 @@ Rectangle {
         onGuessWordPressed: {
             wordInputDialog.visible = true;
         }
+    }
+
+    WordInputDialog {
+        id: wordInputDialog
+        visible: false
+        anchors.fill: parent
     }
 
     Connections {

@@ -2,63 +2,81 @@ import QtQuick 2.0
 
 Item {
     id: dialog
+    height: 480
+    width: 320
+
     Rectangle {
+        id: backgroundRect
         opacity: 0.5
         color: "black"
         anchors.fill: parent
     }
 
     Rectangle {
-        anchors.centerIn: parent
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: parent.height * 0.25
         width: parent.width / 1.5
-        height: parent.height / 2
+        height: parent.height / 4
         color: "white"
+        radius: 10
 
-        Item {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.verticalCenter: parent.verticalCenter
-            height: label.implicitHeight + inputRect.height + okButton.height + okButton.anchors.topMargin
+        Column {
+            id: column
+            anchors.fill: parent
+            anchors.rightMargin: parent.width * 0.05
+            anchors.leftMargin: parent.width * 0.05
+            anchors.bottomMargin: parent.height * 0.05
+            anchors.topMargin: parent.height * 0.05
+
+            spacing: 4
+            property real subComponentHeight: (height - (spacing * 2)) / 3
 
             Text {
                 id: label
+
                 text: "What's the word?"
-                font.pixelSize: topLevel.height / 20
-                anchors.top: parent.top
+                fontSizeMode: Text.Fit
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                minimumPointSize: 8
+                font.pointSize: 128
                 anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width
+                height: column.subComponentHeight
                 color: "black"
             }
 
             Rectangle {
                 id: inputRect
                 anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: parent.width / 20
-                anchors.rightMargin: anchors.leftMargin
-                anchors.top: label.bottom
-                height: input.implicitHeight + topLevel.height / 50
+                width: parent.width
+                height: column.subComponentHeight
                 color: "lightgray"
-            }
 
-            TextInput {
-                id: input
-                font.pixelSize: topLevel.height / 20
-                font.capitalization: Font.AllUppercase
-                inputMethodHints: Qt.ImhLatinOnly | Qt.ImhUppercaseOnly | Qt.ImhNoPredictiveText
-                anchors.fill: inputRect
-                color: "black"
-                maximumLength: applicationData.word.length
-                onAccepted: okButton.triggered()
+                TextInput {
+                    id: input
+                    font.pixelSize: topLevel.height / 20
+                    font.capitalization: Font.AllUppercase
+                    inputMethodHints: Qt.ImhLatinOnly | Qt.ImhUppercaseOnly | Qt.ImhNoPredictiveText
+                    anchors.fill: parent
+                    anchors.leftMargin: 8
+                    anchors.topMargin: 2
+                    color: "black"
+                    maximumLength: applicationData.word.length
+                    onAccepted: okButton.keyActivated("");
+                    focus: true
+                }
             }
-
-            SmallButton {
+            Key {
                 id: okButton
                 text: "Ok"
-                font.pixelSize: topLevel.height / 20
+                buttonColor: "black"
+                textColor: "white"
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: input.bottom
-                anchors.topMargin: topLevel.height / 50
-                onTriggered: {
+                height: column.subComponentHeight
+                width: height * 1.5
+                onKeyActivated: {
                     applicationData.guessWord(input.text)
                     input.text = ""
                     Qt.inputMethod.hide()
@@ -66,6 +84,5 @@ Item {
                 }
             }
         }
-
     }
 }
