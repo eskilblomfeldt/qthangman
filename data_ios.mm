@@ -132,10 +132,10 @@
     NSArray *products = response.products;
     for (SKProduct *product in products)
     {
-        NSLog(@"Product title: %@" , product.localizedTitle);
-        NSLog(@"Product description: %@" , product.localizedDescription);
-        NSLog(@"Product price: %@" , product.localizedPrice);
-        NSLog(@"Product id: %@" , product.productIdentifier);
+        //NSLog(@"Product title: %@" , product.localizedTitle);
+        //NSLog(@"Product description: %@" , product.localizedDescription);
+        //NSLog(@"Product price: %@" , product.localizedPrice);
+        //NSLog(@"Product id: %@" , product.productIdentifier);
         if ([product.productIdentifier isEqualToString:kUnlockVowelsProductId]) {
             unlockVowels = product;
             [unlockVowels retain];
@@ -266,5 +266,7 @@ void Data::buyVowel(const QChar &vowel) {
     if ([iAPManager canMakePurchases]) {
         //buy a vowel
         [iAPManager purchaseSingleVowel:vowel.toLatin1()];
+    } else {
+        NSLog(@"Not able to make purchases.");
     }
 }
