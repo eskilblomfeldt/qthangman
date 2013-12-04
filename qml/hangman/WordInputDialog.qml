@@ -68,19 +68,36 @@ Item {
                     focus: dialog.visible
                 }
             }
-            Key {
-                id: okButton
-                text: "Ok"
-                buttonColor: "black"
-                textColor: "white"
+            Row {
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: column.subComponentHeight
-                width: height * 1.5
-                onKeyActivated: {
-                    applicationData.guessWord(input.text)
-                    input.text = ""
-                    Qt.inputMethod.hide()
-                    dialog.visible = false
+                spacing: 8
+                Key {
+                    id: okButton
+                    text: "Ok"
+                    buttonColor: "black"
+                    textColor: "white"
+                    height: parent.height
+                    width: height * 1.5
+                    onKeyActivated: {
+                        applicationData.guessWord(input.text)
+                        input.text = ""
+                        Qt.inputMethod.hide();
+                        dialog.visible = false
+                    }
+                }
+                Key {
+                    id: cancelButton
+                    text: "Cancel"
+                    buttonColor: "black"
+                    textColor: "white"
+                    height: parent.height
+                    width: height * 2.5
+                    onKeyActivated: {
+                        input.text = ""
+                        Qt.inputMethod.hide();
+                        dialog.visible = false
+                    }
                 }
             }
         }
