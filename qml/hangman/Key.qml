@@ -11,13 +11,17 @@ Item {
 
     signal keyActivated(string letter)
 
+    state: "NORMAL"
+
     Rectangle {
+        id: keyRect
         anchors.fill: parent
         radius: 10
         color: buttonColor
         border.color: textColor
         visible: keyItem.available
         Text {
+            id: keyText
             anchors.fill: parent
             anchors.rightMargin: parent.width * 0.05
             anchors.leftMargin: parent.width * 0.05
@@ -40,5 +44,38 @@ Item {
                 keyActivated(text);
             }
         }
+        onPressed: {
+            keyItem.state = "PRESSED"
+        }
+        onReleased: {
+            keyItem.state = "NORMAL"
+        }
     }
+
+    states: [
+        State {
+            name: "NORMAL"
+            PropertyChanges {
+                target: keyRect
+                color: keyItem.buttonColor
+                border.color: keyItem.textColor
+            }
+            PropertyChanges {
+                target: keyText
+                color: keyItem.textColor
+            }
+        },
+        State {
+            name: "PRESSED"
+            PropertyChanges {
+                target: keyRect
+                color: keyItem.textColor
+                border.color: keyItem.buttonColor
+            }
+            PropertyChanges {
+                target: keyText
+                color: keyItem.buttonColor
+            }
+        }
+    ]
 }
