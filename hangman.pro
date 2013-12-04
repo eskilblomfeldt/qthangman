@@ -18,6 +18,12 @@ SOURCES += main.cpp \
     data.cpp
 
 android: SOURCES += data_android.cpp
+ios {
+    TARGET = qthangman
+    QMAKE_TARGET_BUNDLE_PREFIX = "com.digia.qt.iosteam"
+    OBJECTIVE_SOURCES += data_ios.mm
+    LIBS += -framework StoreKit
+}
 else: SOURCES += data_default.cpp
 
 # Installation path
