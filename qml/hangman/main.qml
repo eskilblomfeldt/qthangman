@@ -27,7 +27,7 @@ Rectangle {
 
     Item {
         id: gameScreen
-        visible: application.word.length > 0
+        visible: applicationData.word.length > 0
         anchors.fill: parent
 
         Text {
