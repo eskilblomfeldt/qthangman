@@ -21,6 +21,7 @@ Data::Data(QObject *parent)
 void Data::initWordList()
 {
     QMutexLocker locker(&m_lock);
+    qsrand(::time(0));
     QFile file(":/enable1.txt");
     if (file.open(QIODevice::ReadOnly)) {
         QByteArray allData = file.readAll();
