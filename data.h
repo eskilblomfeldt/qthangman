@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QStringList>
+#include <QMutex>
 
 class Data : public QObject
 {
@@ -47,6 +48,7 @@ private:
     QString m_lettersOwned;
     QStringList m_wordList;
     static Data *m_instance;
+    QMutex m_lock;
 };
 
 #endif // DATA_H
