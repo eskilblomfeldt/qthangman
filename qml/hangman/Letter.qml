@@ -15,12 +15,6 @@ Item {
 
         anchors.horizontalCenterOffset: visible ? 0 : -topLevel.width / 2
 
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 500
-            }
-        }
-
         Behavior on anchors.horizontalCenterOffset {
             NumberAnimation {
                 duration: 500

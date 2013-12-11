@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<manifest android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" android:versionCode="1" package="com.digia.QtHangman">
+<manifest android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" android:versionCode="3" package="com.digia.QtHangman">
     <application android:icon="@drawable/icon" android:label="Qt Hangman" android:name="org.qtproject.qt5.android.bindings.QtApplication">
         <activity android:screenOrientation="portrait" android:label="Qt Hangman" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="org.qtproject.example.hangman.HangmanActivity">
             <intent-filter>

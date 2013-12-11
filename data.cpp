@@ -3,22 +3,25 @@
 #include <QDebug>
 #include <time.h>
 #include <QBuffer>
+#include <QtConcurrent/QtConcurrentRun>
 
 Data *Data::m_instance = 0;
 
 Data::Data(QObject *parent)
     : QObject(parent)
+    , m_lock(QMutex::Recursive)
 {
     m_instance = this;
     qsrand(::time(0));
     connect(this, SIGNAL(vowelBought(QChar)), this, SLOT(registerLetterBought(QChar)));
 
-    initWordList();
-    chooseRandomWord();
+    QtConcurrent::run(this, &Data::initWordList);
 }
 
 void Data::initWordList()
 {
+    QMutexLocker locker(&m_lock);
+    qsrand(::time(0));
     QFile file(":/enable1.txt");
     if (file.open(QIODevice::ReadOnly)) {
         QByteArray allData = file.readAll();
@@ -32,6 +35,8 @@ void Data::initWordList()
                 m_wordList.append(QString::fromLatin1(ba));
         }
     }
+
+    chooseRandomWord();
 }
 
 void Data::reset()
@@ -44,6 +49,7 @@ void Data::reset()
 
 void Data::chooseRandomWord()
 {
+    QMutexLocker locker(&m_lock);
     if (m_wordList.isEmpty())
         return;
 
