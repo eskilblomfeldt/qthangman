@@ -12,7 +12,7 @@ Data::Data(QObject *parent)
     , m_lock(QMutex::Recursive)
 {
     m_instance = this;
-    qsrand(::time(0) + 1);
+    qsrand(::time(0));
     connect(this, SIGNAL(vowelBought(QChar)), this, SLOT(registerLetterBought(QChar)));
 
     QtConcurrent::run(this, &Data::initWordList);
@@ -22,7 +22,7 @@ Data::Data(QObject *parent)
 void Data::initWordList()
 {
     QMutexLocker locker(&m_lock);
-    qsrand(::time(0));
+    qsrand(::time(0) + 1000);
     QFile file(":/enable2.txt");
     if (file.open(QIODevice::ReadOnly)) {
         QByteArray allData = file.readAll();
