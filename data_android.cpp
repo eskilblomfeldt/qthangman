@@ -42,6 +42,16 @@
 #include "data.h"
 #include <QtAndroidExtras/QAndroidJniObject>
 
+bool Data::canMakePurchases()
+{
+    return true;
+}
+
+void Data::initStore()
+{
+
+}
+
 void Data::buyVowel(const QChar &vowel)
 {
     QAndroidJniObject::callStaticMethod<void>("org/qtproject/example/hangman/HangmanActivity",

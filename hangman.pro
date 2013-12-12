@@ -37,10 +37,14 @@ qtcAddDeployment()
 
 OTHER_FILES += \
     qml/hangman/Hangman.qml \
+    qml/hangman/SimpleButton.qml \
+    qml/hangman/BusyButton.qml \
     enable1.txt \
+    enable2.txt \
     android-source/AndroidManifest.xml \
     android-source/src/org/qtproject/example/hangman/HangmanActivity.java \
-    android-source/src/com/android/vending/billing/IInAppBillingService.aidl
+    android-source/src/com/android/vending/billing/IInAppBillingService.aidl \
+
 
 HEADERS += \
     data.h

@@ -112,6 +112,36 @@
     }
 }
 
+-(NSString *)localizedPriceForVowel:(char)vowel
+{
+    SKProduct *vowelProduct = nil;
+    switch (vowel) {
+        case 'A':
+            vowelProduct = vowelA;
+            break;
+        case 'E':
+            vowelProduct = vowelE;
+            break;
+        case 'I':
+            vowelProduct = vowelI;
+            break;
+        case 'O':
+            vowelProduct = vowelO;
+            break;
+        case 'U':
+            vowelProduct = vowelU;
+            break;
+        default:
+            break;
+    }
+
+    if (vowelProduct != nil) {
+        return [vowelProduct localizedPrice];
+    }
+
+    return @"";
+}
+
 -(void)purchaseUnlockVowels
 {
     SKPayment *payment = [SKPayment paymentWithProduct:unlockVowels];
@@ -169,6 +199,7 @@
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
+    Q_UNUSED(queue);
     for (SKPaymentTransaction *transaction in transactions) {
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchased:
@@ -218,8 +249,7 @@
 {
     // remove the transaction from the payment queue.
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-    
-    //TODO: send notificaiton
+    Data::instance()->purchaseWasSuccessful(wasSuccessful);
 }
 
 //
@@ -247,26 +277,37 @@
 //
 - (void)failedTransaction:(SKPaymentTransaction *)transaction
 {
-    if (transaction.error.code != SKErrorPaymentCancelled)
-    {
-        // error!
-        [self finishTransaction:transaction wasSuccessful:NO];
-    }
-    else
-    {
-        // this is fine, the user just cancelled, so don’t notify
-        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-    }
+    [self finishTransaction:transaction wasSuccessful:NO];
 }
 
 @end
 
+bool Data::canMakePurchases()
+{
+    InAppPurchaseManager *iAPManager = [InAppPurchaseManager sharedInstance];
+    return [iAPManager canMakePurchases];
+}
+
+
 void Data::buyVowel(const QChar &vowel) {
     InAppPurchaseManager *iAPManager = [InAppPurchaseManager sharedInstance];
-    if ([iAPManager canMakePurchases]) {
+    if (canMakePurchases()) {
         //buy a vowel
         [iAPManager purchaseSingleVowel:vowel.toLatin1()];
     } else {
         NSLog(@"Not able to make purchases.");
     }
+}
+
+void Data::initStore()
+{
+    //Create the store so that product informaiton can be requested
+    [InAppPurchaseManager sharedInstance];
+}
+
+QString Data::localizedPriceForLetter(const QString &letter)
+{
+    if (letter.isEmpty())
+        return QString();
+    return QString::fromNSString([[InAppPurchaseManager sharedInstance] localizedPriceForVowel:letter.at(0).toLatin1()]);
 }

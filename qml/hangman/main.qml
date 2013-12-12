@@ -3,7 +3,20 @@ import QtQuick.Controls 1.1
 
 Rectangle {
     id: topLevel
-    color: "black"
+    gradient: Gradient {
+        GradientStop {
+            position: 0.0
+            color: "#87E0FD"
+        }
+        GradientStop {
+            position: 0.4
+            color: "#53CBF1"
+        }
+        GradientStop {
+            position: 1.0
+            color: "#05ABE0"
+        }
+    }
 
     height: 480
     width: 320
@@ -34,23 +47,23 @@ Rectangle {
             id: title
             color: "white"
             text: qsTr("Qt Hangman")
-            font.pixelSize: Math.min(parent.width, parent.height) / 15
+            font.pixelSize: Math.min(parent.width, parent.height) / 10
             anchors.right: parent.right
             anchors.rightMargin: topLevel.width / 100
         }
-
-        Text {
-            id: copyrightNotice
-            color: "white"
-            anchors.left: parent.horizontalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: topLevel.width / 100
-            anchors.top: title.bottom
-            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            font.pixelSize: Math.max(8, title.font.pixelSize / 3)
-            horizontalAlignment: Text.AlignRight
-            text: qsTr("Uses The Enhanced North American Benchmark LExicon (ENABLE) by M. Cooper and Alan Beale")
-        }
+//Dont need a copyright notice if we use our own list
+//        Text {
+//            id: copyrightNotice
+//            color: "white"
+//            anchors.left: parent.horizontalCenter
+//            anchors.right: parent.right
+//            anchors.rightMargin: topLevel.width / 100
+//            anchors.top: title.bottom
+//            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+//            font.pixelSize: Math.max(8, title.font.pixelSize / 3)
+//            horizontalAlignment: Text.AlignRight
+//            text: qsTr("Uses The Enhanced North American Benchmark LExicon (ENABLE) by M. Cooper and Alan Beale")
+//        }
 
         Item {
             anchors.top: title.bottom
@@ -84,7 +97,11 @@ Rectangle {
             anchors.right: parent.right
             height: parent.height * 0.25
             onLetterSelected: {
-                applicationData.requestLetter(letter.charAt(0));
+                if (applicationData.isVowel(letter) && Qt.platform.os === "ios") {
+                    showPurchaseDialog(letter);
+                } else {
+                    applicationData.requestLetter(letter.charAt(0));
+                }
             }
             onResetPressed: {
                 letterSelector.reset();
@@ -97,6 +114,12 @@ Rectangle {
                 wordInputDialog.visible = true;
             }
         }
+    }
+
+    function showPurchaseDialog(letter) {
+        purchaseDialog.letter = letter;
+        purchaseDialog.state = "INITIAL";
+        purchaseDialog.visible = true;
     }
 
     Rectangle {
@@ -114,6 +137,12 @@ Rectangle {
 
     WordInputDialog {
         id: wordInputDialog
+        visible: false
+        anchors.fill: parent
+    }
+
+    PurchaseDialog {
+        id: purchaseDialog
         visible: false
         anchors.fill: parent
     }

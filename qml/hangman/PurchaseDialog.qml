@@ -5,12 +5,15 @@ Item {
     height: 480
     width: 320
 
+    property string letter: ""
+
+    state: "INITIAL"
+
     Rectangle {
         id: backgroundRect
         opacity: 0.5
         color: "black"
         anchors.fill: parent
-
         MouseArea {
             anchors.fill: backgroundRect
         }
@@ -39,7 +42,7 @@ Item {
             Text {
                 id: label
 
-                text: "What's the word?"
+                text: "Purchase Vowel " + letter +"?"
                 fontSizeMode: Text.Fit
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -51,43 +54,37 @@ Item {
                 color: "black"
             }
 
-            Rectangle {
-                id: inputRect
-                anchors.left: parent.left
+            Text {
+                id: priceLable
+
+                text: applicationData.localizedPriceForLetter(letter);
+                fontSizeMode: Text.Fit
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                minimumPointSize: 8
+                font.pointSize: 64
+                anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width
                 height: column.subComponentHeight
-                color: "lightgray"
-
-                TextInput {
-                    id: input
-                    font.pixelSize: topLevel.height / 20
-                    font.capitalization: Font.AllUppercase
-                    inputMethodHints: Qt.ImhLatinOnly | Qt.ImhUppercaseOnly | Qt.ImhNoPredictiveText
-                    anchors.fill: parent
-                    anchors.leftMargin: 8
-                    anchors.topMargin: 2
-                    color: "black"
-                    maximumLength: applicationData.word.length
-                    onAccepted: okButton.clicked();
-                    focus: dialog.visible
-                }
+                color: "black"
             }
+
             Row {
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: column.subComponentHeight
                 spacing: 8
-                SimpleButton {
+                BusyButton {
                     id: okButton
-                    text: "Ok"
+                    text: "Buy"
                     buttonColor: "black"
                     textColor: "white"
                     height: parent.height
                     width: height * 1.5
                     onClicked: {
-                        applicationData.guessWord(input.text)
-                        input.text = ""
-                        Qt.inputMethod.hide();
-                        dialog.visible = false
+                        if (available) {
+                            applicationData.requestLetter(letter.charAt(0));
+                            dialog.state = "WAITING"
+                        }
                     }
                 }
                 SimpleButton {
@@ -98,12 +95,64 @@ Item {
                     height: parent.height
                     width: height * 2.5
                     onClicked: {
-                        input.text = ""
-                        Qt.inputMethod.hide();
-                        dialog.visible = false
+                        dialog.state = "CANCLED"
                     }
                 }
             }
         }
     }
+
+    states: [
+        State {
+            name: "INITIAL"
+            PropertyChanges {
+                target: okButton
+                available: true;
+            }
+        },
+        State {
+            name: "WAITING"
+            PropertyChanges {
+                target: okButton
+                available: false;
+            }
+        },
+        State {
+            name: "CANCLED"
+            PropertyChanges {
+                target: dialog
+                visible: false;
+            }
+        },
+        State {
+            name: "FAILED"
+            PropertyChanges {
+                target: dialog
+                visible: false
+            }
+            PropertyChanges {
+                target: okButton
+                available: true
+            }
+        },
+        State {
+            name: "SUCCESS"
+            PropertyChanges {
+                target: dialog
+                visible: false
+            }
+        }
+    ]
+
+    Connections {
+        target: applicationData
+        onPurchaseWasSuccessful: {
+            if (wasSuccessful) {
+                state = "SUCCESS";
+            } else {
+                state = "FAILED";
+            }
+        }
+    }
+
 }

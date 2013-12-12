@@ -12,17 +12,18 @@ Data::Data(QObject *parent)
     , m_lock(QMutex::Recursive)
 {
     m_instance = this;
-    qsrand(::time(0));
+    qsrand(::time(0) + 1);
     connect(this, SIGNAL(vowelBought(QChar)), this, SLOT(registerLetterBought(QChar)));
 
     QtConcurrent::run(this, &Data::initWordList);
+    initStore();
 }
 
 void Data::initWordList()
 {
     QMutexLocker locker(&m_lock);
     qsrand(::time(0));
-    QFile file(":/enable1.txt");
+    QFile file(":/enable2.txt");
     if (file.open(QIODevice::ReadOnly)) {
         QByteArray allData = file.readAll();
         QBuffer buffer(&allData);
@@ -96,12 +97,21 @@ void Data::guessWord(const QString &word)
         m_lettersOwned += m_word.toUpper();
     } else {
         // Small hack to get an additional penalty for guessing wrong
+
+
         static int i=0;
         Q_ASSERT(i < 10);
         m_lettersOwned += QString::number(i++);
         emit errorCountChanged();
     }
     emit lettersOwnedChanged();
+}
+
+bool Data::isVowel(const QString &letter)
+{
+    Q_ASSERT(letter.size() == 1);
+    QChar letterChar = letter.at(0);
+    return vowels().contains(letterChar);
 }
 
 void Data::requestLetter(const QString &letterString)

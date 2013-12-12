@@ -2,9 +2,9 @@ import QtQuick 2.0
 
 Rectangle {
     id: hangman
-    color: "black"
+    color: "transparent"
     border.color: "white"
-    border.width: width / 100
+    border.width: width / 50
 
     property int errorCount: applicationData.errorCount
 
@@ -52,7 +52,7 @@ Rectangle {
         id: rope
         anchors.top: horizontalPole.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        width: parent.width / 100
+        width: parent.width / 50
         height: parent.height / 5
 
         opacity: errorCount > 2 ? 1.0 : 0.0
@@ -81,8 +81,8 @@ Rectangle {
             width: height
 
             radius: width * 0.5
-            color: "black"
-            border.width: width / 10
+            color: "transparent"
+            border.width: width / 5
             border.color: "white"
             opacity: errorCount > 3 ? 1.0 : 0.0
             visible: opacity > 0.0
