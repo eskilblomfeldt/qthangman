@@ -22,7 +22,7 @@ void Data::initWordList()
 {
     QMutexLocker locker(&m_lock);
     qsrand(::time(0) + 1000);
-    QFile file(":/enable1.txt");
+    QFile file(":/enable2.txt");
     if (file.open(QIODevice::ReadOnly)) {
         QByteArray allData = file.readAll();
         QBuffer buffer(&allData);
