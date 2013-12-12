@@ -52,6 +52,13 @@ void Data::initStore()
 
 }
 
+QString Data::localizedPriceForLetter(const QString &letter)
+{
+    Q_UNUSED(letter);
+    return QString();
+}
+
+
 void Data::buyVowel(const QChar &vowel)
 {
     QAndroidJniObject::callStaticMethod<void>("org/qtproject/example/hangman/HangmanActivity",
