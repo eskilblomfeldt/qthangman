@@ -51,19 +51,6 @@ Rectangle {
             anchors.right: parent.right
             anchors.rightMargin: topLevel.width / 100
         }
-//Dont need a copyright notice if we use our own list
-//        Text {
-//            id: copyrightNotice
-//            color: "white"
-//            anchors.left: parent.horizontalCenter
-//            anchors.right: parent.right
-//            anchors.rightMargin: topLevel.width / 100
-//            anchors.top: title.bottom
-//            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-//            font.pixelSize: Math.max(8, title.font.pixelSize / 3)
-//            horizontalAlignment: Text.AlignRight
-//            text: qsTr("Uses The Enhanced North American Benchmark LExicon (ENABLE) by M. Cooper and Alan Beale")
-//        }
 
         Item {
             anchors.top: title.bottom

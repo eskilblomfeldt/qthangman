@@ -3,8 +3,8 @@ import QtQuick 2.0
 Rectangle {
     id: hangman
     color: "transparent"
-    border.color: "white"
-    border.width: width / 50
+    //border.color: "white"
+    //border.width: width / 50
 
     property int errorCount: applicationData.errorCount
 
