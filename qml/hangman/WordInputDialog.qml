@@ -16,6 +16,14 @@ Item {
         }
     }
 
+    onVisibleChanged: {
+        if (visible) {
+            console.log("giveing input focus");
+            input.forceActiveFocus();
+            input.focus = true;
+        }
+    }
+
     Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
@@ -71,7 +79,6 @@ Item {
                     color: "black"
                     maximumLength: applicationData.word.length
                     onAccepted: okButton.clicked();
-                    focus: dialog.visible
                 }
             }
             Row {

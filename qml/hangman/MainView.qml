@@ -101,7 +101,6 @@ Rectangle {
             }
             onGuessWordPressed: {
                 wordInputDialog.visible = true;
-                wordInputDialog.forceActiveFocus();
             }
         }
     }
