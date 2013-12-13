@@ -45,17 +45,17 @@ Rectangle {
         visible: applicationData.word.length > 0
         anchors.fill: parent
 
-        Text {
-            id: title
-            color: "white"
-            text: qsTr("Qt Hangman")
-            font.pixelSize: Math.min(parent.width, parent.height) / 10
-            anchors.right: parent.right
-            anchors.rightMargin: topLevel.width / 100
-        }
+//        Text {
+//            id: title
+//            color: "white"
+//            text: qsTr("Qt Hangman")
+//            font.pixelSize: Math.min(parent.width, parent.height) / 10
+//            anchors.right: parent.right
+//            anchors.rightMargin: topLevel.width / 100
+//        }
 
         Item {
-            anchors.top: title.bottom
+            anchors.top: gameScreen.top
             anchors.bottom: word.top
             anchors.left: parent.left
             anchors.right: parent.right
@@ -101,6 +101,7 @@ Rectangle {
             }
             onGuessWordPressed: {
                 wordInputDialog.visible = true;
+                wordInputDialog.forceActiveFocus();
             }
         }
     }

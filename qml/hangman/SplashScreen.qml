@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Window 2.1
 
 Rectangle {
     id: topLevel
@@ -19,10 +20,14 @@ Rectangle {
 
     Image {
         id: logo
-        source: "images/Hangman_logo.png"
+
+        property bool isRetina: Screen.pixelDensity / 2 > Screen.logicalPixelDensity
+
+        source: isRetina ? "images/Hangman_logo@x2.png" : "images/Hangman_logo.png"
         anchors.centerIn: parent
         height: 262
         width: 268
+
     }
 
     Text {
@@ -30,6 +35,7 @@ Rectangle {
         anchors.top: logo.bottom
         anchors.topMargin: 10
         text: "Qt Hangman"
+        font.family: ".Helvetica Neue Interface -M3"
         color: "white"
         font.pointSize: 24
     }

@@ -30,7 +30,9 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             minimumPointSize: 8
-            font.pointSize: 128
+            font.pointSize: 64
+            font.family: "Helvetica Neue"
+            font.weight: Font.Light
         }
     }
 

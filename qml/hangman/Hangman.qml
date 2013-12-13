@@ -3,8 +3,6 @@ import QtQuick 2.0
 Rectangle {
     id: hangman
     color: "transparent"
-    //border.color: "white"
-    //border.width: width / 50
 
     property int errorCount: applicationData.errorCount
 
@@ -16,7 +14,7 @@ Rectangle {
         anchors.bottomMargin: parent.height / 50
         anchors.left: parent.left
         anchors.leftMargin: parent.height / 50
-        width: parent.width / 10
+        width: parent.width / 20
 
         opacity: errorCount > 0 ? 1.0 : 0.0
         visible: opacity > 0.0
@@ -35,7 +33,7 @@ Rectangle {
         anchors.left: pole.right
         anchors.right: parent.right
         anchors.rightMargin: parent.height / 50
-        height: parent.height / 10
+        height: parent.height / 20
 
         color: "white"
 
@@ -122,6 +120,7 @@ Rectangle {
                 origin.y: 0
                 angle: 30
             }
+            antialiasing: true
             opacity: errorCount > 5 ? 1.0 : 0.0
             visible: opacity > 0.0
             Behavior on opacity {
@@ -143,6 +142,7 @@ Rectangle {
                 origin.y: 0
                 angle: -30
             }
+            antialiasing: true
             opacity: errorCount > 6 ? 1.0 : 0.0
             visible: opacity > 0.0
             Behavior on opacity {
@@ -164,6 +164,7 @@ Rectangle {
                 origin.y: 0
                 angle: 30
             }
+            antialiasing: true
             opacity: errorCount > 7 ? 1.0 : 0.0
             visible: opacity > 0.0
             Behavior on opacity {
@@ -184,7 +185,7 @@ Rectangle {
                 origin.y: 0
                 angle: -30
             }
-
+            antialiasing: true
             opacity: errorCount > 8 ? 1.0 : 0.0
             visible: opacity > 0.0
             Behavior on opacity {

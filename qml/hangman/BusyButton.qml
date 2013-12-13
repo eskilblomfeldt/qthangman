@@ -6,5 +6,6 @@ SimpleButton {
         id: busyIndicator
         anchors.fill: parent
         visible: !parent.available
+        running: visible
     }
 }

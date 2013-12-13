@@ -23,8 +23,8 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: parent.height * 0.25
-        width: parent.width / 1.5
-        height: parent.height / 4
+        width: parent.width / 2
+        height: parent.height / 6
         color: "white"
         radius: 10
 
@@ -36,7 +36,7 @@ Item {
             anchors.bottomMargin: parent.height * 0.05
             anchors.topMargin: parent.height * 0.05
 
-            spacing: 4
+            spacing: 8
             property real subComponentHeight: (height - (spacing * 2)) / 3
 
             Text {
@@ -79,7 +79,7 @@ Item {
                     buttonColor: "black"
                     textColor: "white"
                     height: parent.height
-                    width: height * 1.5
+                    width: height * 3
                     onClicked: {
                         if (available) {
                             applicationData.requestLetter(letter.charAt(0));
@@ -93,7 +93,7 @@ Item {
                     buttonColor: "black"
                     textColor: "white"
                     height: parent.height
-                    width: height * 2.5
+                    width: height * 3
                     onClicked: {
                         dialog.state = "CANCLED"
                     }

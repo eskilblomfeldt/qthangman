@@ -20,8 +20,8 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: parent.height * 0.25
-        width: parent.width / 1.5
-        height: parent.height / 4
+        width: parent.width / 2
+        height: parent.height / 6
         color: "white"
         radius: 10
 
@@ -33,7 +33,7 @@ Item {
             anchors.bottomMargin: parent.height * 0.05
             anchors.topMargin: parent.height * 0.05
 
-            spacing: 4
+            spacing: 8
             property real subComponentHeight: (height - (spacing * 2)) / 3
 
             Text {
@@ -57,15 +57,17 @@ Item {
                 width: parent.width
                 height: column.subComponentHeight
                 color: "lightgray"
+                radius: 5
 
                 TextInput {
                     id: input
-                    font.pixelSize: topLevel.height / 20
+                    font.pixelSize: inputRect.height * 0.7
                     font.capitalization: Font.AllUppercase
                     inputMethodHints: Qt.ImhLatinOnly | Qt.ImhUppercaseOnly | Qt.ImhNoPredictiveText
                     anchors.fill: parent
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
                     anchors.leftMargin: 8
-                    anchors.topMargin: 2
                     color: "black"
                     maximumLength: applicationData.word.length
                     onAccepted: okButton.clicked();
@@ -82,7 +84,7 @@ Item {
                     buttonColor: "black"
                     textColor: "white"
                     height: parent.height
-                    width: height * 1.5
+                    width: height * 3
                     onClicked: {
                         applicationData.guessWord(input.text)
                         input.text = ""
@@ -96,7 +98,7 @@ Item {
                     buttonColor: "black"
                     textColor: "white"
                     height: parent.height
-                    width: height * 2.5
+                    width: height * 3
                     onClicked: {
                         input.text = ""
                         Qt.inputMethod.hide();

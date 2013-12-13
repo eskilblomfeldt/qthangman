@@ -4,8 +4,8 @@ Item {
     id: keyView
     property real keyWidth: (width - (horizontalSpacing * 9)) / 10
     property real keyHeight: (height - (verticalSpacing * 3)) / 4
-    property real horizontalSpacing: 2
-    property real verticalSpacing: 4
+    property real horizontalSpacing: 6
+    property real verticalSpacing: 6
     property bool locked: false
 
     property var keys: [keyA, keyB, keyC, keyD, keyE, keyF, keyG, keyH, keyI, keyJ,
